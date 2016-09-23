@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load input_checker %}
+{% block specific-css %}
+    <link href="{% static 'blog_engine/pagedown-extra/demo/prettify.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'vendor/bower_components/select2/dist/css/select2.min.css' %}" type="text/css" rel="stylesheet" />
+
+{#    <link href="{% static 'vendor/bower_components/pagedown-extra/demo/demo.css' %}" type="text/css" rel="stylesheet" />#}
+{% endblock %}
+{% block content %}
+    <form method="POST" id="form_post" enctype="multipart/form-data" onload="prettyPrint()" >
+        {% csrf_token %}
+        {% for input in form %}
+            <div class="row">
+            {% if input.errors %}
+                {{ input.errors }}
+            {% endif %}
+
+            {% if input.name == 'body_markdown' %}
+                <div class="row wmd-panel">
+                <div id="wmd-button-bar-markdown"></div>
+                    <div class="col s6 input-field">
+                        <label for="{{ input.name }}">{{ input.label }}</label>
+                        {{ input }}
+                    </div>
+                    <div class="col s6 wmd-panel wmd-preview" id="wmd-preview-markdown">
+
+                    </div>
+                </div>
+            {% else %}
+                {% if input|is_select%}
+
+                    <div class="row">
+                        <div class="col s12 ">
+                            <label>{{ input.label }}</label>
+                            {{ input }}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col s12 input-field">
+                        <label for="{{ input.name }}">{{ input.label }}</label>
+                        {{ input }}
+                    </div>
+                {% endif %}
+            {% endif %}
+            </div>
+        {% endfor %}
+        {{ formset.management_form }}
+        <h3>{% trans 'New Tags' %}</h3>
+        <div class="tags">
+
+            {% for inner_form in formset %}
+                <div id="new_tag_{{ forloop.counter0 }}">
+                    {% for input in inner_form %}
+                        <div class="col s12 input-field">
+                            <label for="{{ input.name }}">{{ input.label }}</label>
+                            {{ input }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+             {% endfor %}
+
+        </div>
+        <div class="row">
+                <a href="#" class="add-tag">
+                    {% trans 'Add Tag' %}
+                </a>
+            </div>
+        <input type="submit" class="btn white black-text" value="{% trans 'create' %}">
+    </form>
+    <script type="text/html" id="tag-template">
+        <div id="new_tag_<%= id %>">
+
+                <div class="col s12 input-field">
+                    <label for="name">Name</label>
+                    <input
+                            id="id_form-<%= id %>-name"
+                            maxlength="100"
+                            name="form-<%= id %>-name" type="text" />
+                </div>
+
+        </div>
+</script>
+{% endblock %}
+{% block specific-js %}
+
+    <script type="text/javascript" src="{% static 'vendor/bower_components/select2/dist/js/select2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'blog_engine/pagedown-extra/pagedown/Markdown.Converter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'blog_engine/pagedown-extra/pagedown/Markdown.Sanitizer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'blog_engine/pagedown-extra/pagedown/Markdown.Editor.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'blog_engine/pagedown-extra/demo/prettify.js' %}"></script>
+    <script type="text/javascript" src="{% static 'blog_engine/pagedown-extra/Markdown.Extra.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'blog_engine/underscore/underscore-min.js' %}"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            (function () {
+
+                var converter1 = Markdown.getSanitizingConverter();
+                Markdown.Extra.init(converter1, {
+                  extensions: "all",
+                  highlighter: "prettify"
+                });
+
+                var editor1 = new Markdown.Editor(converter1,"-markdown");
+                editor1.hooks.chain("onPreviewRefresh", prettyPrint); // google code prettify
+                editor1.run();
+
+            })();
+
+
+            $('#form_post').submit(function(e)
+            {
+                console.log("Preventing upload");
+                e.preventDefault();
+                var form = this;
+                $('#id_body').val($('#wmd-preview-markdown').html());
+                form.submit();
+            });
+
+            $('.add-tag').click(function(ev){
+                    ev.preventDefault();
+                    var count = $('.tags').children().length;
+                    var tmplMarkup = $('#tag-template').html();
+                    var compiledTmpl = _.template(tmplMarkup, { id : count });
+                    $('div.tags').append(compiledTmpl({ id : count }));
+                    $('#id_form-TOTAL_FORMS').attr('value', count+1);
+                });
+
+            $('select').select2();
+        });
+    </script>
+{% endblock %}

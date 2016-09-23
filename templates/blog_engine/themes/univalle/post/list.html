@@ -1,0 +1,97 @@
+{% extends 'blog_engine/themes/univalle/base_blog_engine.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+    <div class="home interna">
+        <div  class="container">
+            <div class="">
+                {% if query %}
+                    <p>
+                        {% trans 'Results for' %}
+                    </p>
+                    <h1>
+                        {{ query|safe }}
+                    </h1>
+                {% else %}
+                    <h1 align="center">
+                        Blog
+                    </h1>
+                {% endif  %}
+                {% for post in list %}
+                    <article class="post-{{ post.id }} type-post status-publish format-standard hentry">
+                        <header>
+                            <h2 class="" align="center">
+                                <a href="{% url 'blog_engine:post_detail' post.slug %}" rel="bookmark">
+                                    {{ post.title }}
+                                </a>
+                            </h2>
+                            <div class="entry-meta">
+                                <span class="posted-on">
+
+                                    {{ post.created|date }}
+                                </span>
+                                <span class="byline">
+                                    {{ post.author }}
+                                </span>
+
+                            </div>
+                        </header>
+                        <div class="entry-content">
+                            {{ post.body|safe }}
+                        </div>
+                        <footer class="entry-meta">
+                            <span class="tags-lings">
+                                {% trans 'Tags:' %}
+                                {% for tag in post.tags.all %}
+                                    <a href="{% url 'blog_engine:tag_detail' tag.slug%}">{{ tag.name }},</a>
+                                {% endfor %}
+                            </span>
+                        </footer>
+                    </article>
+                {% empty %}
+                    {% trans 'No post found' %}
+                {% endfor %}
+                <div class="" id="infinite-handle">
+                    <div class="span center">
+                        <ul class="pager ">
+
+                            {% if list.has_previous %}
+                                <li>
+                                    <a href="?page={{ list.previous_page_number }}">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for i in range %}
+                                {% if i == list.number %}
+                                    <li class="active grey darken-4">
+                                        <a href="#!">
+                                            {{ i }}
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="waves-effect">
+                                        <a href="?page={{ i }}">
+                                            {{ i }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if list.has_next %}
+                                <li>
+                                    <a href="?page={{ list.next_page_number }}">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
