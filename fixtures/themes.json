@@ -1,0 +1,1 @@
+[{"fields": {"folder": "darkula", "selected": false, "name": "darkula"}, "model": "blog_engine.theme", "pk": 1}, {"fields": {"folder": "kelly", "selected": false, "name": "kelly"}, "model": "blog_engine.theme", "pk": 2}, {"fields": {"folder": "univalle", "selected": true, "name": "univalle"}, "model": "blog_engine.theme", "pk": 3}]
