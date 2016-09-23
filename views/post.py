@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.utils.text import slugify
 from django.db import IntegrityError
 from django.template.loader import get_template
-from django.template import TemplateDoesNotExist
+from django.utils.encoding import iri_to_uri, uri_to_iri
+from django.utils.http import urlquote
 
 from utils import utils
 
@@ -18,17 +19,20 @@ from .. import conf as blog_engine_conf
 
 
 class Create(base_views.BaseCreateView):
-    template_name = "blog_engine/post/create.html"
     form_class = blog_engine_modelforms.Post
+
+    def get_template_names(self):
+        try:
+            template_selected = blog_engine_models.Theme.objects.get(selected=True)
+        except blog_engine_models.Theme.DoesNotExist:
+            template_selected = blog_engine_models.Theme.objects.get(name="darkula")
+        return ["blog_engine/themes/%s/post/create.html" % template_selected.folder]
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.has_perm('blog_engine.add_post'):
             return super(Create, self).dispatch(request, *args, **kwargs)
         else:
-            try:
-                return HttpResponseNotFound(get_template("403.html").render())
-            except TemplateDoesNotExist:
-                return HttpResponseNotFound("<h1>Forbidden</h1>")
+            return HttpResponseNotFound(get_template("403.html").render())
 
     def get_context_data(self, **kwargs):
         context = super(Create, self).get_context_data(**kwargs)
@@ -46,6 +50,13 @@ class Create(base_views.BaseCreateView):
         valid_tags = []
         post = form.save(commit=False)
         post.author = self.request.user
+        try:
+            post.slug = slugify(post.title)
+            post.save()
+        except IntegrityError:
+            post.slug = slugify(post.title + " " + utils.generate_random_string(4))
+            post.save()
+
         post.save()
         form.save_m2m()
         print post.tags
@@ -74,7 +85,7 @@ class Create(base_views.BaseCreateView):
         post.save()
         return HttpResponseRedirect(
             reverse_lazy(
-                blog_engine_conf.NAMESPACE+":"+blog_engine_conf.POST_DETAIL_URL_NAME,
+                "%s:%s" % (blog_engine_conf.NAMESPACE, blog_engine_conf.POST_DETAIL_URL_NAME),
                 kwargs={
                     'slug': post.slug
                 }
@@ -89,32 +100,47 @@ class Create(base_views.BaseCreateView):
 
 
 class List(base_views.BasePaginationListView):
-    template_name = "blog_engine/post/list.html"
-    queryset = blog_engine_models.Post.objects.filter(visible=True)
+    queryset = blog_engine_models.Post.objects.filter(visible=True).order_by("-id")
     elements_by_page = blog_engine_conf.POST_BY_PAGE
+
+    def get_template_names(self):
+        try:
+            template_selected = blog_engine_models.Theme.objects.get(selected=True)
+        except blog_engine_models.Theme.DoesNotExist:
+            template_selected = blog_engine_models.Theme.objects.get(name="darkula")
+        print template_selected
+        return ["blog_engine/themes/%s/post/list.html" % template_selected.folder]
 
 
 class Detail(base_views.BaseDetailView):
-    template_name = "blog_engine/post/detail.html"
+
     model = blog_engine_models.Post
     context_object_name = "post"
 
-
+    def get_template_names(self):
+        try:
+            template_selected = blog_engine_models.Theme.objects.get(selected=True)
+        except blog_engine_models.Theme.DoesNotExist:
+            template_selected = blog_engine_models.Theme.objects.get(name="darkula")
+        return ["blog_engine/themes/%s/post/detail.html" % template_selected.folder]
 
 
 class Update(generic.UpdateView):
-    template_name = "blog_engine/post/create.html"
     model = blog_engine_models.Post
     form_class = blog_engine_modelforms.Post
+
+    def get_template_names(self):
+        try:
+            template_selected = blog_engine_models.Theme.objects.get(selected=True)
+        except blog_engine_models.Theme.DoesNotExist:
+            template_selected = blog_engine_models.Theme.objects.get(name="darkula")
+        return ["blog_engine/themes/%s/post/create.html" % template_selected.folder]
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.has_perm('blog_engine.change_post'):
             return super(Update, self).dispatch(request, *args, **kwargs)
         else:
-            try:
-                return HttpResponseNotFound(get_template("403.html").render())
-            except TemplateDoesNotExist:
-                return HttpResponseNotFound("<h1>Forbidden</h1>")
+            return HttpResponseNotFound(get_template("403.html").render())
 
     def get_context_data(self, **kwargs):
         context = super(Update, self).get_context_data(**kwargs)
@@ -160,8 +186,52 @@ class Update(generic.UpdateView):
         post.save()
         return HttpResponseRedirect(
             reverse_lazy(
-                blog_engine_conf.NAMESPACE+":"+blog_engine_conf.POST_DETAIL_URL_NAME,
+                "%s:%s" % (blog_engine_conf.NAMESPACE, blog_engine_conf.POST_DETAIL_URL_NAME),
                 kwargs={
                     'slug': post.slug
                 }
             ))
+
+class Search(base_views.BasePaginationListView):
+    elements_by_page = blog_engine_conf.POST_BY_PAGE
+
+    def get_template_names(self):
+        try:
+            template_selected = blog_engine_models.Theme.objects.get(selected=True)
+        except blog_engine_models.Theme.DoesNotExist:
+            template_selected = blog_engine_models.Theme.objects.get(name="darkula")
+        print template_selected
+        return ["blog_engine/themes/%s/post/list.html" % template_selected.folder]
+
+    def get_context_data(self, **kwargs):
+        context = super(Search, self).get_context_data(**kwargs)
+
+        context['query'] = uri_to_iri(self.kwargs.get('query'))
+        busqueda = context['query']
+
+        print uri_to_iri(busqueda)
+        return context
+
+    def get_queryset(self):
+        query = uri_to_iri(self.kwargs.get('query',"").strip())
+        return blog_engine_models.Post.objects.filter(body_markdown__icontains=query)
+
+    def post(self, request, *args, **kwargs):
+        busqueda = None
+
+        try:
+            busqueda = request.POST.get('query', None)
+
+        except KeyError:
+            pass
+        if busqueda is not None:
+            # print busqueda.decode('ascii')
+            # print iri_to_uri(urlquote(busqueda))
+            return HttpResponseRedirect(reverse_lazy(
+                "%s:%s" % (blog_engine_conf.NAMESPACE, blog_engine_conf.POST_SEARCH_URL_NAME),
+                kwargs={
+                    "query": iri_to_uri(urlquote(busqueda))
+                }))
+        return HttpResponseRedirect(reverse_lazy(
+            "%s:%s" % (blog_engine_conf.NAMESPACE, blog_engine_conf.POST_LIST_URL_NAME)
+        ))

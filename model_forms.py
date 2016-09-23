@@ -23,7 +23,9 @@ class Post(forms.ModelForm):
             'title',
             'body',
             'body_markdown',
-            'tags'
+            'short_description',
+            'tags',
+
         )
         widgets = {
             'title': forms.TextInput(),
@@ -35,7 +37,8 @@ class Post(forms.ModelForm):
                 'style': 'display: none;',
 
             }),
-            'tags': forms.SelectMultiple(),
+            'short_description': forms.Textarea(attrs={'class': 'materialize-textarea'}),
+            'tags': forms.SelectMultiple(attrs={'class': 'browser-default select2'}),
         }
 
         labels = {

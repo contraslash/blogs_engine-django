@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{#{% block static-css %}#}
+{#{% endblock %}#}
+{% block specific-css %}
+    <link href="{% static 'blog_engine/highlight/src/styles/atelier-cave-light.css' %}" type="text/css" rel="stylesheet" />
+{#    <link href="{% static 'blog_engine/darkula/css/normalize.css' %}" type="text/css" rel="stylesheet" />#}
+{#    <link href="{% static 'blog_engine/darkula/css/screen.css' %}" type="text/css" rel="stylesheet" />#}
+    <link href="{% static 'blog_engine/kelly/css/style.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'blog_engine/kelly/css/patch.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'blog_engine/kelly/css/share_buttons.css' %}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'blog_engine/font-awesome/css/font-awesome.min.css' %}"/>
+
+{% endblock %}
+{% block header %}
+    <header id="masthead" class="site-header" role="banner">
+		<div class="header-background" style="background-color: #ffffff"></div>
+		<div class="site-branding">
+{#			<h1 class="site-title">#}
+                <a href="/" rel="home">
+                    <img src="{% static 'img/logo_negro.png' %}" style="height: 100px;" class="entry-image">
+                </a>
+{#            </h1>#}
+			<h2 class="site-description">Django, Android, Apache, Ansible y mas</h2>
+		</div>
+
+
+	</header><!-- #masthead -->
+{% endblock %}
+{% block footer %}
+    <div class="site-content">
+
+    <div class="widget-areas clear" id="secondary">
+        <div class="widget-areas-inner">
+            <div class="widget-area">
+
+                <aside class="widget">
+
+                <h3 class="widget-title">
+                    Contáctenos
+                </h3>
+                <ul>
+                    <li>
+                        <a href="https://www.google.com.co/maps/place/Cl.+2+Oe.+%2352-139,+Cali,+Valle+del+Cauca/@3.4153078,-76.5577659,17z/">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        Calle 2 Oeste 52 139, Cali, Colombia
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+5723962611">
+
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            (+57 2) 396 26 11
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:ma0acollazos@gmail.com">
+
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            ma0@contraslash.com
+                        </a>
+                    </li>
+                </ul>
+                </aside>
+            </div>
+            <div class="widget-area">
+                <aside class="widget widget_search">
+                    <form action="{% url search_url 'search' %}" method="POST">
+                        {% csrf_token %}
+                        <label>
+                            <span class="screen-reader-text">{% trans "Search for" %}</span>
+                            <input type="search" class="search-field" placeholder="{% trans "Search" %}" name="query">
+                        </label>
+                        <input type="submit" class="search-submit" value="{% trans "Search" %}">
+                    </form>
+                </aside>
+            </div>
+            <div class="widget-area">
+                <aside class="widget">
+
+                <h3 class="widget-title">Links</h3>
+                <ul>
+                    <li><a href="https://twitter.com/contraSlash" class="twitter-follow-button" data-show-count="false">Follow @contraSlash</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    </li>
+                    <li>
+                        <div class="fb-like" data-href="https://www.facebook.com/Contraslash-1728722777403521/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                    </li>
+                    <li>
+                        <script src="https://apis.google.com/js/platform.js"></script>
+
+                        <script>
+                            function onYtEvent(payload) {
+                                if (payload.eventType == 'subscribe') {
+                                    // Add code to handle subscribe event.
+                                } else if (payload.eventType == 'unsubscribe') {
+                                    // Add code to handle unsubscribe event.
+                                }
+                                if (window.console) { // for debugging only
+                                    window.console.log('YT event: ', payload);
+                                }
+                            }
+                        </script>
+                        <div class="g-ytsubscribe" data-channelid="UChaielAU4NlB3Yk4DxHd9bw" data-layout="default" data-count="default" data-onytevent="onYtEvent"></div>
+                    </li>
+                </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer class="site-footer">
+    <div class="">
+
+         <section class="poweredby">
+             Powered by
+             <a class="" href="http://contraslash.com">&lt;contraslash&gt;</a>|
+             Based on
+           <a href="https://es.wordpress.org/themes/kelly/">Kelly</a> a wordpress theme by
+           <a href="https://automattic.com/">AUTOMATTIC</a></section>
+    </div>
+</footer>
+{% endblock %}
+{% block specific-js %}
+    <script type="text/javascript" src="{% static 'blog_engine/highlight/highlight.pack.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+{% endblock %}

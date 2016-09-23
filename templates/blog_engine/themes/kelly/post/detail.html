@@ -1,0 +1,61 @@
+{% extends 'blog_engine/themes/kelly/base_blog_engine.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block og-tags %}
+    <meta property="og:title" content="{{ post.title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ full_url }}" />
+    <meta property="og:image" content="{{ site_root }}{% static 'img/logo_negro.png' %}" />
+    <meta property="og:description" content="{{ post.short_description }}" />
+{% endblock %}
+{% block description %}{{ post.short_description }}{% endblock %}
+
+{% block content %}
+    <div class="site-content">
+        <div id="primary" class="content-area">
+            <div id="main" class="site-main">
+                <article class="post-{{ post.id }} type-post status-publish format-standard hentry">
+                    <header>
+                        <h1 class=" entry-title">
+                            <a href="{% url 'blog_engine:post_detail' post.slug %}" rel="bookmark">
+                                {{ post.title }}
+                            </a>
+                        </h1>
+                        <div class="entry-meta">
+                            <span class="posted-on">
+
+                                {{ post.created|date }}
+                            </span>
+                            <span class="byline">
+                                {{ post.author }}
+                            </span>
+
+                        </div>
+                    </header>
+                    <div class="entry-content">
+                        {{ post.body|safe }}
+                    </div>
+                    <footer class="entry-meta">
+                        <span class="tags-lings">
+                            {% trans 'Tags:' %}
+                            {% for tag in post.tags.all %}
+                                <a href="{% url 'blog_engine:tag_detail' tag.slug%}">{{ tag.name }},</a>
+                            {% endfor %}
+                        </span>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="" id="infinite-handle">
+    <ul class="share-buttons">
+
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode:'' }}&t={{ post.title|urlencode:''  }}" title="Share on Facebook" target="_blank"><img alt="Share on Facebook" src="{% static 'images/social_flat_rounded_rects_svg/Facebook.svg' %}"></a></li>
+        <li><a href="https://twitter.com/intent/tweet?source={{ full_url|urlencode:'' }}&text={{ post.title|urlencode:''  }}:%20{{ full_url|urlencode:'' }}&via=contraslash" target="_blank" title="Tweet"><img alt="Tweet" src="{% static 'images/social_flat_rounded_rects_svg/Twitter.svg' %}"></a></li>
+        <li><a href="https://plus.google.com/share?url={{ full_url|urlencode:'' }}" target="_blank" title="Share on Google+"><img alt="Share on Google+" src="{% static 'images/social_flat_rounded_rects_svg/Google+.svg' %}"></a></li>
+        <li><a href="https://getpocket.com/save?url={{ full_url|urlencode:'' }}&title={{ post.title|urlencode:''  }}" target="_blank" title="Add to Pocket"><img alt="Add to Pocket" src="{% static 'images/social_flat_rounded_rects_svg/Pocket.svg' %}"></a></li>
+        <li><a href="mailto:?subject={{ post.title }}&body={{ full_url|urlencode:'' }}" target="_blank" title="Send email"><img alt="Send email" src="{% static 'images/social_flat_rounded_rects_svg/Email.svg' %}"></a></li>
+    </ul>
+    </div>
+{% endblock %}

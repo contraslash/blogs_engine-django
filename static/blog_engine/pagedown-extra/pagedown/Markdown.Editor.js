@@ -322,6 +322,7 @@
     // Adds a listener callback to a DOM element which is fired on a specified
     // event.
     util.addEvent = function (elem, event, listener) {
+        console.log(elem);
         if (elem.attachEvent) {
             // IE only.  The "on" is mandatory.
             elem.attachEvent("on" + event, listener);

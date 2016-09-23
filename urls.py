@@ -11,6 +11,11 @@ urlpatterns = [
         name=blog_engine_conf.POST_CREATE_URL_NAME
     ),
     url(
+        r'^search/(?P<query>[\w|\W]+)/$',
+        post_views.Search.as_view(),
+        name=blog_engine_conf.POST_SEARCH_URL_NAME
+    ),
+    url(
         r'^$',
         post_views.List.as_view(),
         name=blog_engine_conf.POST_LIST_URL_NAME

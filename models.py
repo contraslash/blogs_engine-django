@@ -9,6 +9,8 @@ class Tag(models.Model):
         max_length=100,
     )
 
+    short_description = models.TextField()
+
     slug = models.SlugField(blank=True, unique=True)
 
     def __unicode__(self):
@@ -21,6 +23,8 @@ class Post(models.Model):
     )
 
     slug = models.SlugField(blank=True, unique=True)
+
+    short_description = models.TextField()
 
     body = models.TextField(
 
@@ -82,3 +86,19 @@ class ReplyToComment(models.Model):
     author = models.ForeignKey(
         auth_models.User,
     )
+
+
+class Theme(models.Model):
+    name = models.CharField(
+        max_length=100
+    )
+
+    selected = models.BooleanField(
+        default=False
+    )
+    folder = models.CharField(
+        max_length=20
+    )
+
+    def __unicode__(self):
+        return self.name

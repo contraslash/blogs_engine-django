@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block specific-css %}
+    <link href="{% static 'blog_engine/highlight/src/styles/darkula.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'blog_engine/darkula/css/normalize.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'blog_engine/darkula/css/screen.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'blog_engine/darkula/css/styles.css' %}" type="text/css" rel="stylesheet" />
+{% endblock %}
+    {% block footer %}
+        <footer class="site-footer">
+        <div class="">
+
+             <section class="poweredby">
+                 Powered by
+                 <a class="" href="http://contraslash.com">&lt;contraslash&gt;</a>|
+                 Based on
+               <a href="https://github.com/dongri/Coder">Coder</a> ghost theme forked from Casper by
+               <a href="http://twitter.com/@dongriat">@dongriat</a></section>
+        </div>
+    </footer>
+    {% endblock %}
+{% block specific-js %}
+    <script type="text/javascript" src="{% static 'blog_engine/highlight/highlight.pack.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+{% endblock %}
