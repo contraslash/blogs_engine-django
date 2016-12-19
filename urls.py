@@ -16,6 +16,16 @@ urlpatterns = [
         name=blog_engine_conf.POST_SEARCH_URL_NAME
     ),
     url(
+        r'^tags/$',
+        tag_views.List.as_view(),
+        name=blog_engine_conf.TAG_LIST_URL_NAME
+    ),
+    url(
+        r'^tag/(?P<slug>[\w-]+)/$',
+        tag_views.Detail.as_view(),
+        name=blog_engine_conf.TAG_DETAIL_URL_NAME
+    ),
+    url(
         r'^$',
         post_views.List.as_view(),
         name=blog_engine_conf.POST_LIST_URL_NAME
@@ -30,10 +40,5 @@ urlpatterns = [
         post_views.Update.as_view(),
         name=blog_engine_conf.POST_CREATE_URL_NAME
     ),
-    url(
-        r'^tag/(?P<slug>[\w-]+)/$',
-        tag_views.Detail.as_view(),
-        name=blog_engine_conf.TAG_DETAIL_URL_NAME
-    )
 
 ]

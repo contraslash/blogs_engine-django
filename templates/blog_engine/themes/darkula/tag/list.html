@@ -2,35 +2,21 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
-    {% if query %}
-        <p>
-            {% trans 'Results for' %}
-        </p>
-        <h1>
-            {{ query|safe }}
-        </h1>
-    {% endif  %}
-    {% for post in list %}
+    <h1>
+        {% trans 'Categories' %}
+    </h1>
+    {% for tag in list %}
         <article class="post">
             <header>
                 <h2 class="post-title">
-                    <a href="{% url 'blog_engine:post_detail' post.slug %}">
-                        {{ post.title }}
+                    <a href="{% url 'blog_engine:tag_detail' tag.slug %}">
+                        {{ tag.name }}
                     </a>
                 </h2>
-                <span class="post-meta">
-                    {{ post.created|date }} |
-                    {% for tag in post.tags.all %}
-                        <a href="{% url 'blog_engine:tag_detail' tag.slug%}">{{ tag.name }}</a>
-                    {% endfor %}
-                </span>
             </header>
-            <section class="post-content">
-                {{ post.body|safe }}
-            </section>
         </article>
     {% empty %}
-        {% trans 'No post found' %}
+        {% trans 'No categories found' %}
     {% endfor %}
     <div class="row ">
         <div class="col m4 s8 offset-m4 offset-s2">

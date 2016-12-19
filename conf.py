@@ -10,3 +10,4 @@ POST_SEARCH_URL_NAME = "post_search"
 POST_BY_PAGE = 5
 
 TAG_DETAIL_URL_NAME = "tag_detail"
+TAG_LIST_URL_NAME = "tag_list"

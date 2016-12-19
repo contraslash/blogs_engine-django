@@ -8,6 +8,20 @@ from base import views
 from .. import model_forms as blog_engine_model_forms
 from .. import models as blog_engine_models
 
+class List(views.BasePaginationListView):
+    model = blog_engine_models.Tag
+    elements_by_page = 20
+
+    def get_template_names(self):
+        try:
+            template_selected = blog_engine_models.Theme.objects.get(selected=True)
+        except blog_engine_models.Theme.DoesNotExist:
+            template_selected = blog_engine_models.Theme.objects.get(name="darkula")
+        return ["blog_engine/themes/%s/tag/list.html" % template_selected.folder]
+
+    def get_queryset(self):
+        return blog_engine_models.Tag.objects.all()
+
 
 class Detail(views.BasePaginationListView):
     model = blog_engine_models.Tag
