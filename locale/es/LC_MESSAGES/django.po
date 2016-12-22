@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-21 22:35-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: model_forms.py:90
+msgid "First name"
+msgstr "Nombre"
+
+#: model_forms.py:91
+msgid "Last name"
+msgstr "Apellido"
+
+#: model_forms.py:93
+msgid "Profile"
+msgstr "Perfil"
+
+#: templates/blog_engine/themes/darkula/author/detail.html:27
+#: templates/blog_engine/themes/kelly/author/detail.html:22
+msgid "Posts"
+msgstr "Publicaciones"
+
+#: templates/blog_engine/themes/darkula/post/create.html:55
+#: templates/blog_engine/themes/kelly/post/create.html:56
+#: templates/blog_engine/themes/univalle/post/create.html:50
+msgid "New Tags"
+msgstr "Nuevas etiquetas"
+
+#: templates/blog_engine/themes/darkula/post/create.html:74
+#: templates/blog_engine/themes/kelly/post/create.html:75
+#: templates/blog_engine/themes/univalle/post/create.html:69
+msgid "Add Tag"
+msgstr "Agregar etiqueta"
+
+#: templates/blog_engine/themes/darkula/post/create.html:77
+#: templates/blog_engine/themes/kelly/post/create.html:78
+#: templates/blog_engine/themes/univalle/post/create.html:72
+msgid "create"
+msgstr "Crear"
+
+#: templates/blog_engine/themes/darkula/post/detail.html:33
+#: templates/blog_engine/themes/kelly/post/detail.html:57
+msgid "Related posts"
+msgstr "Publicaciones relacionadas"
+
+#: templates/blog_engine/themes/darkula/post/list.html:7
+#: templates/blog_engine/themes/kelly/post/list.html:10
+#: templates/blog_engine/themes/univalle/post/list.html:10
+msgid "Results for"
+msgstr "Resultados para"
+
+#: templates/blog_engine/themes/darkula/post/list.html:39
+#: templates/blog_engine/themes/darkula/tag/detail.html:25
+#: templates/blog_engine/themes/kelly/post/list.html:55
+#: templates/blog_engine/themes/kelly/tag/detail.html:55
+#: templates/blog_engine/themes/univalle/post/list.html:52
+#: templates/blog_engine/themes/univalle/tag/detail.html:48
+msgid "No post found"
+msgstr "No encontramos publicaciones"
+
+#: templates/blog_engine/themes/darkula/tag/list.html:6
+#: templates/blog_engine/themes/kelly/tag/list.html:9
+msgid "Categories"
+msgstr "Etiquetas"
+
+#: templates/blog_engine/themes/darkula/tag/list.html:19
+#: templates/blog_engine/themes/kelly/tag/list.html:27
+msgid "No categories found"
+msgstr "Etiqueta no encontrada"
+
+#: templates/blog_engine/themes/kelly/base_blog_engine.html:72
+msgid "Search for"
+msgstr "Búsqueda para"
+
+#: templates/blog_engine/themes/kelly/base_blog_engine.html:73
+#: templates/blog_engine/themes/kelly/base_blog_engine.html:75
+#: templates/blog_engine/themes/univalle/base_blog_engine.html:63
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/blog_engine/themes/kelly/post/detail.html:31
+#: templates/blog_engine/themes/kelly/post/list.html:30
+#: templates/blog_engine/themes/kelly/tag/detail.html:30
+msgid "by"
+msgstr "por"
+
+#: templates/blog_engine/themes/kelly/post/detail.html:48
+#: templates/blog_engine/themes/kelly/post/list.html:47
+#: templates/blog_engine/themes/kelly/tag/detail.html:47
+#: templates/blog_engine/themes/univalle/post/detail.html:41
+#: templates/blog_engine/themes/univalle/post/list.html:44
+#: templates/blog_engine/themes/univalle/tag/detail.html:40
+msgid "Tags:"
+msgstr "Etiquetas"
+
+#: templates/blog_engine/themes/kelly/tag/list.html:14
+msgid "All categories"
+msgstr "Todas las categorías"

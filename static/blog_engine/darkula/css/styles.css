@@ -1,0 +1,16 @@
+body{
+    background-color: #2A2A2A !important;
+    /*background: #2A2A2A !important;*/
+
+}
+
+.post{
+    border-bottom: #333 1px solid;
+    margin: 4rem auto;
+    padding-bottom: 4rem;
+
+}
+
+.pagination li a{
+    color: #999999 !important;
+}

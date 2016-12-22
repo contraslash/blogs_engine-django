@@ -1,0 +1,46 @@
+{% extends 'blog_engine/themes/darkula/base_blog_engine.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+
+        <article class="post">
+            <header>
+                <h2 class="post-title">
+                    {% if user.first_name %}
+                        {{ user.first_name }} {{ user.last_name }}
+                    {% else %}
+                        {{ user.username }}
+                    {% endif %}
+                </h2>
+                <span class="post-meta">
+                    {{ post.created|date }} |
+                    {% for tag in post.tags.all %}
+                        <a href="{% url 'blog_engine:tag_detail' tag.slug%}">{{ tag.name }}</a>
+                    {% endfor %}
+                </span>
+            </header>
+            <section class="post-content">
+                {{ author.profile }}
+                <div class="row">
+                    <h1>
+                        {% trans 'Posts' %}
+                    </h1>
+                    {% for post in posts %}
+                    <div class="col s12 m4">
+                        <div class="card">
+                            <div class="card-title">
+                                <a href="{% url 'blog_engine:post_detail' post.slug %}">
+                                    {{ post.title }}
+                                </a>
+                            </div>
+                            <div class="card-content">
+                                {{ post.body|truncatechars_html:150 }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </article>
+{% endblock %}

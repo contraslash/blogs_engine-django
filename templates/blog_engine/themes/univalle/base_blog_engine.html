@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block static-css %}
+    <link href="{% static 'blog_engine/bootstrap/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block specific-css %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" type="text/css" />
+    <link rel="stylesheet" href="{% static 'blog_engine/univalle/css/template.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blog_engine/univalle/css/megamenu.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blog_engine/univalle/css/home.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blog_engine/univalle/css/custom.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blog_engine/univalle/css/share_buttons.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blog_engine/font-awesome/css/font-awesome.min.css' %}"/>
+
+
+    <link href="{% static 'blog_engine/highlight/src/styles/atelier-cave-light.css' %}" type="text/css" rel="stylesheet" />
+{#    <link href="{% static 'blog_engine/darkula/css/normalize.css' %}" type="text/css" rel="stylesheet" />#}
+{#    <link href="{% static 'blog_engine/darkula/css/screen.css' %}" type="text/css" rel="stylesheet" />#}
+{#    <link href="{% static 'blog_engine/kelly/css/style.css' %}" type="text/css" rel="stylesheet" />#}
+{#    <link href="{% static 'blog_engine/kelly/css/patch.css' %}" type="text/css" rel="stylesheet" />#}
+{#    <link href="{% static 'blog_engine/kelly/css/share_buttons.css' %}" type="text/css" rel="stylesheet" />#}
+
+{% endblock %}
+{% block header %}
+    <!-- HEADER -->
+<header id="t3-header" class="uv-header">
+	<div class="container">
+        <div class="row">
+            <!-- LOGO -->
+            <div class="col-xs-12 col-md-7 col-lg-6 logo">
+                <div class="logo-image">
+                    <a href="http://www.univalle.edu.co" title="Universidad del Valle">
+                                                    <img class="logo-img" src="{% static 'blog_engine/univalle/img/logo_univalle.png'%}" alt="Universidad del Valle" />
+                                                <span>Laboratorio de Redes y Sistemas Distribuidos</span>
+                    </a>
+                    <small class="site-slogan"></small>
+                </div>
+            </div>
+            <!-- //LOGO -->
+                            <div class="col-xs-12 col-md-5 col-lg-6">
+                                                    <!-- HEAD LINKS -->
+                            <div class="col-lg-12 head-links">
+
+
+<div class="custom"  >
+	<ul>
+<li><a href="http://www.univalle.edu.co/directorio-univalle">Directorio</a></li>
+<li><a href="http://www.univalle.edu.co/index.php/correo-electronico-institucional">Correo</a></li>
+<li><a href="http://biblioteca.univalle.edu.co/" target="_blank">Biblioteca</a></li>
+<li><a href="http://atencionalciudadano.univalle.edu.co/" target="_blank">Atención al ciudadano</a></li>
+<li><a href="http://www.univalle.edu.co/index.php/mapa-del-sitio">Mapa del sitio</a></li>
+<li><a href="http://www.univalle.edu.co/english/index.html" target="_blank">English version</a></li>
+</ul></div>
+
+                            </div>
+                                                                            <!-- HEAD SEARCH -->
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-lg-offset-1  head-search ">
+                                <div class="itp-gsitp-gs buscador-google">
+	<form action="{% url search_url 'search' %}" method="POST" accept-charset="utf-8">
+        {% csrf_token %}
+        <input type="text" class="" placeholder="{% trans "Search" %}" name="query">
+        <input type="submit" class="btn" value="Search" />
+    </form>
+</div>
+                            </div>
+                            <!-- //HEAD SEARCH -->
+
+                                        </div>
+
+        </div>
+	</div>
+</header>
+<!-- //HEADER -->
+    <!-- MAIN NAVIGATION -->
+<nav id="t3-mainnav" class="wrap uv-interna-nav navbar navbar-default t3-mainnav">
+	<div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".t3-navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+
+
+            <button class="btn btn-primary off-canvas-toggle " type="button" data-pos="left" data-nav="#t3-off-canvas" data-effect="off-canvas-effect-4">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+
+<!-- OFF-CANVAS SIDEBAR -->
+
+
+
+    </div>
+</nav>
+
+{% endblock %}
+{% block footer %}
+  <!-- FOOTER -->
+
+
+<footer id="t3-footer" class="wrap uv-footer">
+
+	    <div class="home-contacto">
+        <div class="home-footer-contacto">
+        	<div class="container">
+                <div class="footer-logo">
+                    <a href="http://www.univalle.edu.co" title="Universidad del Valle">
+                            <img class="logo-img" src="{% static 'blog_engine/univalle/images/logo-footer.png' %}" width="112" height="159" alt="Universidad del Valle" />
+                    </a>
+                </div>
+                <div class="nombre-contacto">
+                    <h5>Universidad del Valle</h5>
+                    <ul>
+                        <li>Ciudad Universitaria Mel&eacute;ndez</li>
+                        <li>Cali - Colombia</li>
+                        <li>© 1994 - 2016</li>
+                    </ul>
+                </div>
+                <div class="address">
+                    <h5>Dirección:</h5>
+                    <ul>
+                        <li>Calle 13 # 100-00</li>
+                        <li>Sede San Fernando</li>
+                        <li>Calle 4B N° 36-00</li>
+                    </ul>
+                </div>
+
+                <div class="pbx">
+                    <h5>PBX:</h5>
+                    <ul>
+                        <li>+57 2 3212100</li>
+                        <li>A.A.25360</li>
+                    </ul>
+                </div>
+
+                <div class="social">
+                    <h5>Redes Sociales:</h5>
+                    <ul>
+                        <li><a href="https://www.facebook.com/universidaddelvalle" target="_blank"><img src="{% static 'blog_engine/univalle/images/footericons/facebook.png' %} " alt="Facebook Universidad del Valle"></a></li>
+                        <li><a href="https://www.youtube.com/user/universidaddelvalle1" target="_blank"><img src="{% static 'blog_engine/univalle/images/footericons/youtube.png' %}"  alt="Youtube Universidad del Valle"></a></li>
+                        <li><a href="https://twitter.com/univallecol" target="_blank"><img src="{% static 'blog_engine/univalle/images/footericons/twitter.png' %}"  alt="Twitter Universidad del Valle"></a></li>
+                    </ul>
+                </div>
+			</div>
+        </div>
+
+        <div class="home-footer-enlaces">
+            <div class="container">
+                <nav class="links">
+                        <div class="institucional">
+                            <h5>La Universidad</h5>
+                            <ul>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/consejo-superior">Consejo Superior</a></li>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/consejo-academico">Consejo Académico</a></li>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/rectoria">Rector&iacute;a</a></li>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/nuestros-simbolos/himno-univalle">Nuestros Símbolos</a></li>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/acerca-de-univalle/mision">Acerca de Univalle</a></li>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/dependencias/vicerrectorias">Dependencias</a></li>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/2014-01-30-23-53-03" target="_blank">Museos y Colecciones</a></li>
+                                <li><a href="https://www.facebook.com/universidaddelvalle/photos_stream?tab=photos_albums" target="new">Fotos de la Universidad</a></li>
+                                <li><a href="http://www.univalle.edu.co/mapas/index.html" target="_blank">Mapa del Campus</a></li>
+                                <li><a href="http://www.univalle.edu.co/la-universidad/tour-por-la-universidad">Tour por la Universidad</a></li>
+                                <li><a href="http://secretariageneral.univalle.edu.co/">Normatividad</a></li>
+                                <!--<li><a href="http://planeacion.univalle.edu.co/plandesarrollo/proyectoinstitucional">Proyecto institucional</a></li>-->
+                                <li><a href="http://www.univalle.edu.co/la-universidad/horarios-de-atencion">Horarios de atención</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="facultades">
+                            <h5>Estudia en Univalle</h5>
+                            <ul>
+                                <li><a href="http://www.univalle.edu.co/formacion/pregrado">Pregrado</a></li>
+                                <li><a href="http://www.univalle.edu.co/formacion/postgrado">Postgrado</a></li>
+                                <li><a href="http://www.univalle.edu.co/formacion/diplomados">Diplomados</a></li>
+                                <li><a href="http://www.univalle.edu.co/formacion/cursos-y-talleres">Cursos y Talleres</a></li>
+                            </ul>
+                        </div>
+
+
+                        <div class="sedes">
+                            <h5>Sedes Regionales</h5>
+                            <ul>
+                                <li><a href="http://tulua.univalle.edu.co/" target="_blank">Tuluá</a></li>
+                                <li><a href="http://190.6.162.84/docs_uvbuga/buga.univalle.edu.co/index.php" target="_blank">Buga</a></li>
+                                <li><a href="http://www.univallecaicedonia.edu.co/web/index.html" target="_blank">Caicedonia</a></li>
+                                <li><a href="http://cartago.univalle.edu.co/"target="_blank">Cartago</a></li>
+                                <li><a href="http://nortedelcauca.univalle.edu.co/" target="_blank">Norte del Cauca</a></li>
+                                <li><a href="http://pacifico.univalle.edu.co/" target="_blank">Pacífico</a></li>
+                                <li><a href="http://palmira.univalle.edu.co/">Palmira</a></li>
+                                <li><a href="http://yumbo.univalle.edu.co/" target="_blank">Yumbo</a></li>
+                                <li><a href="http://zarzal.univalle.edu.co/WebNueva/index.html" target="_blank">Zarzal</a></li>
+                                <li><a href="http://www.univalle.edu.co/direccion-de-regionalizacion"target="_blank">Regionalización</a></li>
+                            </ul>
+                        </div>
+                        <div class="investigacion">
+                            <h5>Investigación</h5>
+                            <ul>
+                                <li><a href="http://viceinvestigaciones.univalle.edu.co/index.php/acerca-de-la-vicerrectoria-de-investigacion">Acerca de la Vicerrectoría de investigaciones</a></li>
+                                <li><a href="http://viceinvestigaciones.univalle.edu.co/index.php/institutos-centros-y-grupos">Institutos, Centros y Grupos</a></li>
+                                <li><a href="http://viceinvestigaciones.univalle.edu.co/index.php/convocatorias">Convocatorias</a></li>
+                                <li><a href="http://viceinvestigaciones.univalle.edu.co/index.php/universidad-empresa-otri">Universidad - Empresa (OTRI)</a></li>
+                              	<li><a href="http://viceinvestigaciones.univalle.edu.co/index.php/becas">Becas</a></li>
+                                <li><a href="http://viceinvestigaciones.univalle.edu.co/index.php/gestion-de-la-investigacion-y-formacion">Gestión de la investigación y formación</a></li>
+                                <li><a href="http://dri.univalle.edu.co/">Dirección de Relaciones Internacionales</a></li>
+                                <li><a href="http://programaeditorial.univalle.edu.co/">Programa Editorial</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="internacionalizacion">
+                            <h5>Internacionalización</h5>
+                          	<ul>
+                              	<li><a href="http://dri.univalle.edu.co/index.php/convocatorias">Convocatorias</a></li>
+                          		<li><a href="http://dri.univalle.edu.co/index.php/estudia-en-univalle">Estudia en Univalle</a></li>
+                          		<li><a href="http://dri.univalle.edu.co/index.php/estudia-en-el-exterior">Estudia en el exterior</a></li>
+                          		<li><a href="http://dri.univalle.edu.co/index.php/conveniosinternacionales">Convenios Internacionales</a></li>
+                          		<li><a href="http://dri.univalle.edu.co/index.php/investiga-en-univalle">Investiga en Univalle</a></li>
+                          		<li><a href="http://dri.univalle.edu.co/index.php/solicitudes-tramites">Solicitudes / Trámites</a></li>
+                          		<li><a href="http://dri.univalle.edu.co/index.php/about-univalle">About Univalle</a></li>
+                          		<li><a href="http://dri.univalle.edu.co/index.php/contactos">Contactos</a></li>
+                            </ul>
+                        </div>
+                        <div class="servicios">
+                            <h5>Publicaciones</h5>
+                            <ul>
+                                <li><a href="http://programaeditorial.univalle.edu.co/" target="_blank">Libros</a></li>
+                                <li><a href="http://programaeditorial.univalle.edu.co/revistas-univalle" target="_blank">Revistas y boletines</a></li>
+                                <li><a href="http://mafalda.univalle.edu.co/publicaciones/otraspublicaciones.html" target="_blank">Otras publicaciones</a></li>
+                                <li><a href="http://www.univalle.edu.co/2014-03-31-13-55-29/periodico-campus" target="_blank">Periódico Campus</a></li>
+                            </ul>
+                        </div>
+            	</nav>
+			</div>
+        </div>
+        <section class="home-copyright">
+        	<div class="container">
+                    <p>2016 <a href="http://www.univalle.edu.co/">Universidad del Valle</a> - Vigilada MinEducación</p>
+	        </div>
+        </section>
+    </div>
+</footer>
+
+<!-- //FOOTER -->
+
+{% endblock %}
+{% block static-js %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="application/javascript" src="{% static 'blog_engine/bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+{% block specific-js %}
+    <script type="text/javascript" src="{% static 'blog_engine/highlight/highlight.pack.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+{% endblock %}
