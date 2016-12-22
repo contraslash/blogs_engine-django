@@ -1,3 +1,4 @@
+
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponseNotFound
@@ -125,6 +126,7 @@ class Detail(base_views.BaseDetailView):
         except blog_engine_models.Theme.DoesNotExist:
             template_selected = blog_engine_models.Theme.objects.get(name="darkula")
         return ["blog_engine/themes/%s/post/detail.html" % template_selected.folder]
+
 
     def get_context_data(self, **kwargs):
         context = super(Detail, self).get_context_data(**kwargs)

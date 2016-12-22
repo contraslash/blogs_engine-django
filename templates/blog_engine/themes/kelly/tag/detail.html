@@ -21,12 +21,17 @@
                                     {{ post.title }}
                                 </a>
                             </h2>
+<<<<<<< HEAD
                             <div class="entry-meta single">
+=======
+                            <div class="entry-meta">
+>>>>>>> upstram/master
                                 <span class="posted-on">
 
                                     {{ post.created|date }}
                                 </span>
                                 <span class="byline">
+<<<<<<< HEAD
                                     {% trans "by" %}
                                     <a href="{% url "blog_engine:author_detail" post.author.username %}">
                                         {% if post.author.first_name %}
@@ -35,6 +40,9 @@
                                             {{ post.author.username }}
                                         {% endif %}
                                     </a>
+=======
+                                    {{ post.author }}
+>>>>>>> upstram/master
                                 </span>
 
                             </div>

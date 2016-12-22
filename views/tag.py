@@ -8,7 +8,6 @@ from base import views
 from .. import model_forms as blog_engine_model_forms
 from .. import models as blog_engine_models
 
-
 class List(views.BasePaginationListView):
     model = blog_engine_models.Tag
     elements_by_page = 20

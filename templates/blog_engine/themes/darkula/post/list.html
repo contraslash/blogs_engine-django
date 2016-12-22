@@ -19,6 +19,7 @@
                     </a>
                 </h2>
                 <span class="post-meta">
+
                     {{ post.created|date }} | <a href="{% url "blog_engine:author_detail" post.author.username %}">
                                         {% if post.author.first_name %}
                                             {{ post.author.first_name }} {{ post.author.last_name }}

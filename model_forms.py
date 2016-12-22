@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+
 from . import models as blog_engine_models
 
 
@@ -27,6 +28,7 @@ class Post(forms.ModelForm):
             'short_description',
             'tags',
             'visible',
+
 
         )
         widgets = {

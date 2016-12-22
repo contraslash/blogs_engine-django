@@ -1,7 +1,6 @@
 {% extends 'blog_engine/themes/kelly/base_blog_engine.html' %}
 {% load i18n %}
 {% load staticfiles %}
-{% load disqus_tags %}
 {% block og-tags %}
     <meta property="og:title" content="{{ post.title }}" />
     <meta property="og:type" content="article" />
@@ -23,6 +22,7 @@
                             </a>
                         </h1>
                         <div class="entry-meta single">
+
                             <span class="posted-on">
 
                                 {{ post.created|date }}
@@ -74,7 +74,8 @@
             </div>
         </div>
     </div>
-    {% disqus_html %}
+
+
     <div class="" id="infinite-handle">
     <ul class="share-buttons">
 
@@ -86,7 +87,7 @@
     </ul>
     </div>
 
+
 {% endblock %}
 {% block specific-js %}
-    {% disqus_js full_url path %}
 {% endblock %}

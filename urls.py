@@ -5,6 +5,7 @@ from . import conf as blog_engine_conf
 from .views import post as post_views
 from .views import tag as tag_views
 from .views import author_profile as author_views
+
 urlpatterns = [
     url(
         r'^create/$',
@@ -22,6 +23,7 @@ urlpatterns = [
         name=blog_engine_conf.TAG_LIST_URL_NAME
     ),
     url(
+
         r'^author/me/update$',
         author_views.UpdateMe.as_view(),
         name=blog_engine_conf.AUTHOR_UPDATE_ME_URL_NAME
@@ -32,6 +34,7 @@ urlpatterns = [
         name=blog_engine_conf.AUTHOR_DETAIL_URL_NAME
     ),
     url(
+
         r'^tag/(?P<slug>[\w-]+)/$',
         tag_views.Detail.as_view(),
         name=blog_engine_conf.TAG_DETAIL_URL_NAME
@@ -51,6 +54,5 @@ urlpatterns = [
         post_views.Update.as_view(),
         name=blog_engine_conf.POST_CREATE_URL_NAME
     ),
-
 
 ]

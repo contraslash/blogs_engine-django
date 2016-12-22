@@ -22,11 +22,13 @@
                                 </a>
                             </h2>
                             <div class="entry-meta single">
+
                                 <span class="posted-on">
 
                                     {{ post.created|date }}
                                 </span>
                                 <span class="byline">
+
                                     {% trans "by" %}
                                     <a href="{% url "blog_engine:author_detail" post.author.username %}">
                                         {% if post.author.first_name %}

@@ -73,7 +73,6 @@ a = utils.migrate_from_ghost_dump('posts.csv', 'tags.csv', 'posts_tags.csv')
 
     return posts
 
-
 def create_authors_for_users():
     """
 from apps.blog_engine import utils
@@ -89,9 +88,6 @@ utils.create_authors_for_users()
             user=user,
             slug=slugify(user.username)
         )
-
-
-
 
 
 

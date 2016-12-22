@@ -5,6 +5,7 @@
     <div class="site-content">
         <div id="primary" class="content-area">
             <div id="main" class="site-main">
+<<<<<<< HEAD
                 <h1 class="page-title">
                     {% trans 'Categories' %}
                 </h1>
@@ -33,6 +34,50 @@
 
                         </footer>
                     </article>
+=======
+                {% if query %}
+                    <p>
+                        {% trans 'Results for' %}
+                    </p>
+                    <h1>
+                        {{ query|safe }}
+                    </h1>
+                {% endif  %}
+                {% for post in list %}
+                    <article class="post-{{ post.id }} type-post status-publish format-standard hentry">
+                        <header>
+                            <h2 class=" entry-title">
+                                <a href="{% url 'blog_engine:post_detail' post.slug %}" rel="bookmark">
+                                    {{ post.title }}
+                                </a>
+                            </h2>
+                            <div class="entry-meta">
+                                <span class="posted-on">
+
+                                    {{ post.created|date }}
+                                </span>
+                                <span class="byline">
+                                    {{ post.author }}
+                                </span>
+
+                            </div>
+                        </header>
+                        <div class="entry-content">
+                            {{ post.body|safe }}
+                        </div>
+                        <footer class="entry-meta">
+                            <span class="tags-lings">
+                                {% trans 'Tags:' %}
+                                {% for tag in post.tags.all %}
+                                    <a href="{% url 'blog_engine:tag_detail' tag.slug%}">{{ tag.name }},</a>
+                                {% endfor %}
+                            </span>
+                        </footer>
+                    </article>
+                {% empty %}
+                    {% trans 'No post found' %}
+                {% endfor %}
+>>>>>>> upstram/master
                 <div class="" id="infinite-handle">
                     <div class="span">
                         <ul class="pagination ">
